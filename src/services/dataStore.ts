@@ -2,7 +2,7 @@ import {
   Organization, User, Lead, Contact, Company, Customer, Deal, Job,
   ProductService, Quote, Invoice, Payment, Expense, KirkolSale,
   Task, Activity, DocumentRecord, SupportTicket, InAppNotification,
-  AuditLog, AutomationRule, PreApprovedUser, RoleType
+  AuditLog, AutomationRule, PreApprovedUser, RoleType, SocialQuery, SocialPlatform
 } from '../types';
 
 // Mock Initial Organizations
@@ -417,6 +417,239 @@ const initialLeads: Lead[] = [
     nextFollowUp: '2026-09-04T14:00:00Z',
     createdAt: '2026-09-03T14:00:00Z',
     updatedAt: '2026-09-03T14:00:00Z'
+  },
+  {
+    id: 'lead_5',
+    organizationId: 'org_aluzer',
+    name: 'Amira Shaikh',
+    mobile: '+91 98920 44321',
+    email: 'amira.designs@gmail.com',
+    companyName: 'Amira Couture Studio',
+    location: 'Lokhandwala, Andheri',
+    source: 'Instagram',
+    socialHandle: '@amira_couture_official',
+    interestedService: 'Custom Business Website & CRM Setup',
+    estimatedValue: 35000,
+    priority: 'urgent',
+    ownerId: 'user_sales_1',
+    ownerName: 'Rohit Sharma',
+    status: 'Qualified',
+    aiScore: 92,
+    aiScoreReason: 'Sent DM inquiry on Instagram about online boutique store and automated order notifications.',
+    nextFollowUp: '2026-09-05T12:00:00Z',
+    notes: 'Came via Instagram Reel on e-commerce catalog setup. Active follower.',
+    createdAt: '2026-09-03T16:20:00Z',
+    updatedAt: '2026-09-04T10:00:00Z'
+  },
+  {
+    id: 'lead_6',
+    organizationId: 'org_aluzer',
+    name: 'Vikramaditya Solanki',
+    mobile: '+91 98721 88990',
+    email: 'vikram.tours@gmail.com',
+    companyName: 'Solanki Heritage Tours',
+    location: 'Colaba, Mumbai',
+    source: 'Instagram',
+    socialHandle: '@solanki_heritage_tours',
+    interestedService: 'Fresh Passport Application (Tatkaal/Normal)',
+    estimatedValue: 8000,
+    priority: 'high',
+    ownerId: 'user_sales_1',
+    ownerName: 'Rohit Sharma',
+    status: 'New',
+    aiScore: 85,
+    aiScoreReason: 'Instagram Direct Message inquiry for 4 family members Tatkaal passport appointment.',
+    nextFollowUp: '2026-09-04T16:00:00Z',
+    notes: 'Family urgent trip to Dubai scheduled end of month.',
+    createdAt: '2026-09-04T09:15:00Z',
+    updatedAt: '2026-09-04T09:15:00Z'
+  },
+  {
+    id: 'lead_7',
+    organizationId: 'org_aluzer',
+    name: 'Rajeev & Anita Mehra',
+    mobile: '+91 98104 33221',
+    email: 'rajeev.mehra@mehraexports.in',
+    companyName: 'Mehra Handicrafts LLP',
+    location: 'Vashi, Navi Mumbai',
+    source: 'Facebook',
+    socialHandle: 'fb.com/mehrahandicrafts',
+    interestedService: 'GST Monthly Filing & Reconciliation',
+    estimatedValue: 24000,
+    priority: 'high',
+    ownerId: 'user_sales_1',
+    ownerName: 'Rohit Sharma',
+    status: 'Proposal Sent',
+    aiScore: 89,
+    aiScoreReason: 'Filled Facebook Lead Form from Sponsored Business Tax Ad campaign.',
+    nextFollowUp: '2026-09-05T14:30:00Z',
+    notes: 'Looking for complete quarterly filing, e-Way bills, and input credit optimization.',
+    createdAt: '2026-09-02T15:40:00Z',
+    updatedAt: '2026-09-03T11:20:00Z'
+  },
+  {
+    id: 'lead_8',
+    organizationId: 'org_aluzer',
+    name: 'Harish Chawla',
+    mobile: '+91 98311 77665',
+    companyName: 'Chawla Auto Spares',
+    location: 'Goregaon East',
+    source: 'Facebook',
+    socialHandle: 'fb.com/chawla.autospares',
+    interestedService: 'New PAN Card Registration & Correction',
+    estimatedValue: 1500,
+    priority: 'medium',
+    ownerId: 'user_sales_1',
+    ownerName: 'Rohit Sharma',
+    status: 'Contacted',
+    aiScore: 70,
+    aiScoreReason: 'Commented on Facebook post regarding firm PAN corrections.',
+    nextFollowUp: '2026-09-04T17:00:00Z',
+    notes: 'Needs correction in director name on entity PAN card.',
+    createdAt: '2026-09-03T18:00:00Z',
+    updatedAt: '2026-09-04T08:30:00Z'
+  }
+];
+
+// Social Queries / DMs from Social Platforms (Instagram, Facebook, WhatsApp, Website)
+const initialSocialQueries: SocialQuery[] = [
+  {
+    id: 'sq_ig_1',
+    organizationId: 'org_aluzer',
+    platform: 'Instagram',
+    customerName: 'Amira Shaikh',
+    customerHandle: '@amira_couture_official',
+    customerMobile: '+91 98920 44321',
+    customerEmail: 'amira.designs@gmail.com',
+    queryText: 'Hi team! Saw your reel on custom business website and CRM automation. Do you provide automated WhatsApp invoices & catalog sync for luxury boutique clients?',
+    interestedService: 'Custom Business Website & CRM Setup',
+    receivedAt: '2026-09-04T08:30:00Z',
+    status: 'converted',
+    leadId: 'lead_5',
+    replies: [
+      {
+        id: 'rep_1',
+        sender: 'user',
+        text: 'Hello Amira! Yes absolutely, our system includes full catalog management, WhatsApp PDF invoices, and automated follow-ups.',
+        timestamp: '2026-09-04T08:45:00Z'
+      },
+      {
+        id: 'rep_2',
+        sender: 'customer',
+        text: 'That is awesome! Can we schedule a 15-min demo call tomorrow?',
+        timestamp: '2026-09-04T09:00:00Z'
+      }
+    ]
+  },
+  {
+    id: 'sq_ig_2',
+    organizationId: 'org_aluzer',
+    platform: 'Instagram',
+    customerName: 'Vikramaditya Solanki',
+    customerHandle: '@solanki_heritage_tours',
+    customerMobile: '+91 98721 88990',
+    queryText: 'Hello! Can you help with Tatkaal passport appointment at PSK BKC for 4 family members? Travel date is approaching in 3 weeks.',
+    interestedService: 'Fresh Passport Application (Tatkaal/Normal)',
+    receivedAt: '2026-09-04T09:15:00Z',
+    status: 'new',
+    leadId: 'lead_6',
+    replies: [
+      {
+        id: 'rep_3',
+        sender: 'user',
+        text: 'Hi Vikramaditya! Yes, we can process Tatkaal passport bookings with priority appointment slots and complete document checks.',
+        timestamp: '2026-09-04T09:20:00Z'
+      }
+    ]
+  },
+  {
+    id: 'sq_ig_3',
+    organizationId: 'org_aluzer',
+    platform: 'Instagram',
+    customerName: 'Zoya Fatima Khan',
+    customerHandle: '@zoyakhan_artistry',
+    customerMobile: '+91 98234 11229',
+    queryText: 'Hi! What are the required documents for urgent Trade License & GST registration for a new beauty salon in Bandra?',
+    interestedService: 'GST Monthly Filing & Reconciliation',
+    receivedAt: '2026-09-04T11:40:00Z',
+    status: 'new',
+    replies: []
+  },
+  {
+    id: 'sq_fb_1',
+    organizationId: 'org_aluzer',
+    platform: 'Facebook',
+    customerName: 'Rajeev & Anita Mehra',
+    customerHandle: 'fb.com/mehrahandicrafts',
+    customerMobile: '+91 98104 33221',
+    customerEmail: 'rajeev.mehra@mehraexports.in',
+    queryText: '[Facebook Lead Ad]: Interested in Annual GST & Corporate Accounting Package for Handicrafts Export LLP. Please send corporate quote and turnaround times.',
+    interestedService: 'GST Monthly Filing & Reconciliation',
+    receivedAt: '2026-09-02T15:40:00Z',
+    status: 'converted',
+    leadId: 'lead_7',
+    replies: [
+      {
+        id: 'rep_4',
+        sender: 'user',
+        text: 'Greetings Mr. Mehra! We have received your inquiry from Facebook. Our corporate specialist Rohit will share our customized export GST package.',
+        timestamp: '2026-09-02T16:00:00Z'
+      }
+    ]
+  },
+  {
+    id: 'sq_fb_2',
+    organizationId: 'org_aluzer',
+    platform: 'Facebook',
+    customerName: 'Harish Chawla',
+    customerHandle: 'fb.com/chawla.autospares',
+    customerMobile: '+91 98311 77665',
+    queryText: 'Hi, we need to update our director name and registered address across PAN card and GST certificate. What is the fee and timeline?',
+    interestedService: 'New PAN Card Registration & Correction',
+    receivedAt: '2026-09-03T18:00:00Z',
+    status: 'replied',
+    leadId: 'lead_8',
+    replies: [
+      {
+        id: 'rep_5',
+        sender: 'user',
+        text: 'Hello Harish ji! PAN name & address correction takes approx 5-7 working days. Total service fee is ₹350 per application.',
+        timestamp: '2026-09-03T18:30:00Z'
+      }
+    ]
+  },
+  {
+    id: 'sq_fb_3',
+    organizationId: 'org_aluzer',
+    platform: 'Facebook',
+    customerName: 'Devendra Joshi',
+    customerHandle: 'fb.com/devendra.joshi.92',
+    customerMobile: '+91 97650 99881',
+    queryText: 'Hello! I saw your post regarding Business Tax Audits. Do you also provide fast Income Tax Return (ITR-4) filing for retailers?',
+    interestedService: 'GST Monthly Filing & Reconciliation',
+    receivedAt: '2026-09-04T13:10:00Z',
+    status: 'new',
+    replies: []
+  },
+  {
+    id: 'sq_wa_1',
+    organizationId: 'org_aluzer',
+    platform: 'WhatsApp',
+    customerName: 'Farhan Ansari',
+    customerMobile: '+91 98200 11223',
+    queryText: 'As-salamu alaykum Rohit bhai, we need urgent GST filing done before the 10th. Can you send the quotation for 3 firms?',
+    interestedService: 'GST Monthly Filing & Reconciliation',
+    receivedAt: '2026-09-01T10:00:00Z',
+    status: 'converted',
+    leadId: 'lead_1',
+    replies: [
+      {
+        id: 'rep_6',
+        sender: 'user',
+        text: 'Wa alaykumu s-salam Farhan bhai! Sure, preparing the package proposal right away.',
+        timestamp: '2026-09-01T10:15:00Z'
+      }
+    ]
   }
 ];
 
@@ -1134,6 +1367,7 @@ class VRYSDataStore {
   private notifications: InAppNotification[];
   private auditLogs: AuditLog[];
   private automationRules: AutomationRule[];
+  private socialQueries: SocialQuery[];
 
   constructor() {
     this.orgs = loadOrInit('orgs', initialOrganizations);
@@ -1158,6 +1392,7 @@ class VRYSDataStore {
     this.notifications = loadOrInit('notifications', initialNotifications);
     this.auditLogs = loadOrInit('auditLogs', initialAuditLogs);
     this.automationRules = loadOrInit('automationRules', initialAutomationRules);
+    this.socialQueries = loadOrInit('socialQueries', initialSocialQueries);
   }
 
   // Multi-tenant Org filtering helper
@@ -1432,6 +1667,86 @@ class VRYSDataStore {
   deleteLead(id: string): void {
     this.leads = this.leads.filter(l => l.id !== id);
     save('leads', this.leads);
+  }
+
+  // Social Queries & Inquiries (Instagram, Facebook, WhatsApp, etc.)
+  getSocialQueries(orgId: string, platform?: SocialPlatform | 'ALL'): SocialQuery[] {
+    const orgQueries = this.filterByOrg(this.socialQueries, orgId);
+    if (!platform || platform === 'ALL') return orgQueries;
+    return orgQueries.filter(q => q.platform.toLowerCase() === platform.toLowerCase());
+  }
+
+  createSocialQuery(query: Omit<SocialQuery, 'id' | 'receivedAt' | 'status' | 'replies'>): SocialQuery {
+    const newQuery: SocialQuery = {
+      ...query,
+      id: 'sq_' + Date.now().toString(36),
+      receivedAt: new Date().toISOString(),
+      status: 'new',
+      replies: []
+    };
+    this.socialQueries.unshift(newQuery);
+    save('socialQueries', this.socialQueries);
+    return newQuery;
+  }
+
+  replyToSocialQuery(queryId: string, replyText: string, sender: 'user' | 'bot' = 'user'): SocialQuery | null {
+    const query = this.socialQueries.find(q => q.id === queryId);
+    if (!query) return null;
+
+    const newReply = {
+      id: 'rep_' + Date.now().toString(36),
+      sender,
+      text: replyText,
+      timestamp: new Date().toISOString()
+    };
+
+    const updatedReplies = [...(query.replies || []), newReply];
+    const newStatus = query.status === 'converted' ? 'converted' : 'replied';
+
+    this.socialQueries = this.socialQueries.map(q =>
+      q.id === queryId ? { ...q, replies: updatedReplies, status: newStatus } : q
+    );
+    save('socialQueries', this.socialQueries);
+    return this.socialQueries.find(q => q.id === queryId) || null;
+  }
+
+  updateSocialQueryStatus(queryId: string, status: 'new' | 'replied' | 'converted' | 'archived', leadId?: string): void {
+    this.socialQueries = this.socialQueries.map(q =>
+      q.id === queryId ? { ...q, status, ...(leadId ? { leadId } : {}) } : q
+    );
+    save('socialQueries', this.socialQueries);
+  }
+
+  convertSocialQueryToLead(queryId: string, leadData: {
+    organizationId: string;
+    ownerId: string;
+    ownerName: string;
+    estimatedValue: number;
+    priority?: 'low' | 'medium' | 'high' | 'urgent';
+  }): Lead {
+    const query = this.socialQueries.find(q => q.id === queryId);
+    if (!query) throw new Error('Social query not found');
+
+    const newLead = this.createLead({
+      organizationId: leadData.organizationId,
+      name: query.customerName,
+      mobile: query.customerMobile || '+91 98000 00000',
+      email: query.customerEmail,
+      source: query.platform as any,
+      socialHandle: query.customerHandle,
+      interestedService: query.interestedService || 'General Consultation',
+      estimatedValue: leadData.estimatedValue || 5000,
+      priority: leadData.priority || 'high',
+      ownerId: leadData.ownerId,
+      ownerName: leadData.ownerName,
+      status: 'New',
+      aiScore: 88,
+      aiScoreReason: `Converted directly from ${query.platform} customer inquiry: "${query.queryText.slice(0, 60)}..."`,
+      notes: `Original ${query.platform} message: ${query.queryText}`
+    });
+
+    this.updateSocialQueryStatus(queryId, 'converted', newLead.id);
+    return newLead;
   }
 
   // Customers

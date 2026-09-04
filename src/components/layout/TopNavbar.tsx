@@ -67,7 +67,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
       case 'communications': return 'WhatsApp & Communications';
       case 'tickets': return 'Support Tickets';
       case 'automation': return 'Workflow Automation Engine';
-      case 'ai': return 'VRYS AI Multi-Agent Copilot';
+      case 'ai': return 'VRYS AI Multi-Agent System';
       case 'analytics': return 'Financial & Sales Analytics';
       case 'admin': return 'VRYS SaaS Platform Admin';
       case 'settings': return 'System Settings';

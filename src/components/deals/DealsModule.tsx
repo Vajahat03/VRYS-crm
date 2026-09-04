@@ -166,6 +166,39 @@ export const DealsModule: React.FC = () => {
         </button>
       </div>
 
+      {/* VRYS AI Sales Agent Banner */}
+      <div className="glass-panel" style={{
+        padding: '0.85rem 1.25rem',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%)',
+        border: '1px solid rgba(99, 102, 241, 0.25)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '0.75rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--primary-gradient)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Sparkles size={16} color="#fff" />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <h4 style={{ fontSize: '0.85rem', fontWeight: 700 }}>VRYS AI Sales Agent</h4>
+              <span className="badge badge-emerald" style={{ fontSize: '0.625rem', padding: '1px 5px' }}>Win Likelihood Analysis</span>
+            </div>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+              Deals in <strong>Proposal Sent &amp; Negotiation</strong> stages have an estimated <strong>78% conversion probability</strong>. Follow up on <strong>Aura Dental Clinic</strong> proposal today for optimal closing.
+            </p>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button className="btn btn-glass btn-sm" style={{ fontSize: '0.725rem', padding: '4px 10px' }}>
+            ⚡ 1-Click Send Follow-up
+          </button>
+        </div>
+      </div>
+
       {/* Multi-Stage HTML5 Drag-and-Drop Kanban */}
       <div style={{
         display: 'grid',

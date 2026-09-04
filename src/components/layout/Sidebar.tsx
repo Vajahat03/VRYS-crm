@@ -48,14 +48,20 @@ export const Sidebar: React.FC = () => {
   const expiringDocs = dataStore.getExpiringDocuments(activeOrg.id, 30);
   const quotes = dataStore.getQuotes(activeOrg.id);
   const overdueInvoices = dataStore.getOverdueInvoices(activeOrg.id);
+  const socialQueries = dataStore.getSocialQueries(activeOrg.id).filter(q => q.status === 'new');
 
   const navItems: { group: string; items: NavItem[] }[] = [
     {
-      group: 'Core CRM',
+      group: 'Workspace',
       items: [
         { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
-        { id: 'leads', label: 'Leads Pipeline', icon: UserCheck, badge: leads.length, badgeColor: 'badge-indigo' },
-        { id: 'contacts', label: 'Contacts & Accounts', icon: Users },
+        {
+          id: 'leads',
+          label: 'Leads & Social Inbox',
+          icon: UserCheck,
+          badge: socialQueries.length > 0 ? `${leads.length} (${socialQueries.length} new)` : leads.length,
+          badgeColor: socialQueries.length > 0 ? 'badge-rose' : 'badge-indigo'
+        },
         { id: 'customers', label: 'Customer 360°', icon: Sparkles },
         { id: 'deals', label: 'Sales Deals', icon: Briefcase }
       ]
@@ -63,39 +69,28 @@ export const Sidebar: React.FC = () => {
     {
       group: 'Operations',
       items: [
-        { id: 'jobs', label: 'Job Manager', icon: Layers, badge: pendingJobs.length, badgeColor: 'badge-amber' },
+        { id: 'jobs', label: 'Job Manager', icon: Layers, badge: pendingJobs.length > 0 ? pendingJobs.length : undefined, badgeColor: 'badge-amber' },
         { id: 'documents', label: 'Document Vault', icon: FolderOpen, badge: expiringDocs.length > 0 ? `${expiringDocs.length} Expiring` : undefined, badgeColor: 'badge-rose' },
         { id: 'products', label: 'Services Catalog', icon: ShoppingBag }
       ]
     },
     {
-      group: 'Finance & Ledger',
+      group: 'Finance & Billing',
       items: [
-        { id: 'quotes', label: 'Quotes & Estimates', icon: FileCheck, badge: quotes.length, badgeColor: 'badge-indigo' },
-        { id: 'invoices', label: 'Invoices & Billing', icon: ReceiptText, badge: overdueInvoices.length > 0 ? `${overdueInvoices.length} Due` : undefined, badgeColor: 'badge-rose' },
-        { id: 'payments', label: 'Payment Receipts', icon: CreditCard },
-        { id: 'kirkol', label: 'Counter Sales (Kirkol)', icon: Store, badge: 'Fast', badgeColor: 'badge-cyan' },
-        { id: 'expenses', label: 'Expense Tracker', icon: TrendingDown }
+        { id: 'invoices', label: 'Invoices & Ledger', icon: ReceiptText, badge: overdueInvoices.length > 0 ? `${overdueInvoices.length} Due` : undefined, badgeColor: 'badge-rose' },
+        { id: 'quotes', label: 'Quotes & Estimates', icon: FileCheck, badge: quotes.length > 0 ? quotes.length : undefined, badgeColor: 'badge-indigo' }
       ]
     },
     {
-      group: 'Productivity & AI',
+      group: 'Intelligence & Tools',
       items: [
-        { id: 'tasks', label: 'Tasks & Follow-ups', icon: CheckSquare, badge: pendingTasks.length, badgeColor: 'badge-rose' },
-        { id: 'calendar', label: 'Calendar View', icon: Calendar },
-        { id: 'communications', label: 'WhatsApp & Messages', icon: MessageSquare },
-        { id: 'ai', label: 'VRYS AI Copilot', icon: Bot, badge: 'AI', badgeColor: 'badge-indigo' },
-        { id: 'automation', label: 'Automation Rules', icon: Zap }
-      ]
-    },
-    {
-      group: 'System & Admin',
-      items: [
+        { id: 'ai', label: 'VRYS AI', icon: Bot, badge: 'AI', badgeColor: 'badge-indigo' },
+        { id: 'tasks', label: 'Tasks & Calendar', icon: CheckSquare, badge: pendingTasks.length > 0 ? pendingTasks.length : undefined, badgeColor: 'badge-amber' },
         { id: 'analytics', label: 'Analytics & Reports', icon: TrendingUp },
         ...(currentUser.role === 'SUPER_ADMIN' ? [
-          { id: 'admin' as NavRoute, label: 'VRYS Platform Admin', icon: ShieldCheck, badge: 'Owner', badgeColor: 'badge-amber' }
+          { id: 'admin' as NavRoute, label: 'Platform Admin', icon: ShieldCheck, badge: 'Owner', badgeColor: 'badge-amber' }
         ] : []),
-        { id: 'settings', label: 'Settings & Profile', icon: Settings }
+        { id: 'settings', label: 'Settings', icon: Settings }
       ]
     }
   ];

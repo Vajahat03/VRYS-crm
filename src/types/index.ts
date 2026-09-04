@@ -81,9 +81,33 @@ export interface Lead {
   aiScore?: number;
   aiScoreReason?: string;
   nextFollowUp?: string;
+  socialHandle?: string;
   notes?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export type SocialPlatform = 'Instagram' | 'Facebook' | 'WhatsApp' | 'Website' | 'Google';
+
+export interface SocialQuery {
+  id: string;
+  organizationId: string;
+  platform: SocialPlatform;
+  customerName: string;
+  customerHandle?: string;
+  customerMobile?: string;
+  customerEmail?: string;
+  queryText: string;
+  interestedService: string;
+  receivedAt: string;
+  status: 'new' | 'replied' | 'converted' | 'archived';
+  leadId?: string;
+  replies?: {
+    id: string;
+    sender: 'user' | 'bot' | 'customer';
+    text: string;
+    timestamp: string;
+  }[];
 }
 
 export interface Contact {

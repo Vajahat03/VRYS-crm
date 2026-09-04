@@ -104,7 +104,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   });
 
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const savedTheme = localStorage.getItem('vrys_theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
+    } catch {
+      // Fallback
+    }
+    return 'light'; // Default white theme
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('vrys_theme', theme);
+    } catch {
+      // Storage unavailable
+    }
+  }, [theme]);
+
   const [currentRoute, setCurrentRoute] = useState<NavRoute>('dashboard');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);

@@ -206,6 +206,39 @@ export const JobsModule: React.FC = () => {
         </div>
       </div>
 
+      {/* VRYS AI Operations Agent Banner */}
+      <div className="glass-panel" style={{
+        padding: '0.85rem 1.25rem',
+        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%)',
+        border: '1px solid rgba(245, 158, 11, 0.25)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '0.75rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(135deg, #f59e0b, #ef4444)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Layers size={16} color="#fff" />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <h4 style={{ fontSize: '0.85rem', fontWeight: 700 }}>VRYS AI Operations Agent</h4>
+              <span className="badge badge-amber" style={{ fontSize: '0.625rem', padding: '1px 5px' }}>SLA &amp; Docs Monitor</span>
+            </div>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+              <strong>{jobs.filter(j => j.status !== 'Completed' && j.status !== 'Cancelled').length} Active Jobs</strong> in progress. <strong>Tatkaal PSK BKC Appointment</strong> documents are verified and ready for Sep 6 appointment.
+            </p>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button className="btn btn-glass btn-sm" style={{ fontSize: '0.725rem', padding: '4px 10px' }} onClick={() => setStatusFilter('In Progress')}>
+            ⏳ Filter In Progress
+          </button>
+        </div>
+      </div>
+
       {/* Operational Kanban View */}
       {viewMode === 'kanban' && (
         <div style={{

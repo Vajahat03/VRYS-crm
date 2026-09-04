@@ -512,7 +512,7 @@ export const AdminPortalModule: React.FC = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} color="var(--emerald)" /> Unlimited Operators & Roles</span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} color="var(--emerald)" /> Autonomous AI Multi-Agent Copilot</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} color="var(--emerald)" /> Autonomous AI Multi-Agent System</span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} color="var(--emerald)" /> Trigger-Condition-Action Automations</span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Check size={14} color="var(--emerald)" /> Dedicated Priority Account Manager</span>
               </div>

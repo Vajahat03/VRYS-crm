@@ -224,23 +224,23 @@ export const AIAssistantModule: React.FC = () => {
             style={{ padding: '0.35rem 0.85rem', fontSize: '0.775rem' }}
             onClick={() => setActiveTab('chat')}
           >
-            <Bot size={14} /> Multi-Agent Copilot
+            <Bot size={14} /> VRYS AI Multi-Agent System
           </button>
           <button
             className={`btn btn-sm ${activeTab === 'models' ? 'btn-primary' : 'btn-glass'}`}
             style={{ padding: '0.35rem 0.85rem', fontSize: '0.775rem' }}
             onClick={() => setActiveTab('models')}
           >
-            <Cpu size={14} /> Own Models & Diagnostics
+            <Cpu size={14} /> Neural Models & Diagnostics
           </button>
         </div>
       </div>
 
       {activeTab === 'chat' ? (
         /* Chat View */
-        <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '1.25rem', flex: 1, minHeight: 0 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '270px 1fr', gap: '1.25rem', flex: 1, minHeight: 0 }}>
           {/* Left Persona Selector */}
-          <div className="glass-panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div className="glass-panel" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', overflowY: 'auto' }}>
             <h3 style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Specialized Sub-Agents
             </h3>
@@ -248,9 +248,11 @@ export const AIAssistantModule: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               {[
                 { id: 'ALL', name: 'Master Orchestrator', icon: Cpu, desc: 'Auto-routes to best model' },
-                { id: 'SALES', name: 'Sales Strategy Agent', icon: Briefcase, desc: 'XGBoost Lead scoring & conversion' },
-                { id: 'BI', name: 'Business Intelligence', icon: DollarSign, desc: 'Ledger, margins & cash flow' },
-                { id: 'CRM', name: 'CRM & Documents', icon: Layers, desc: 'Vault expirations & tasks' }
+                { id: 'LEADS', name: 'Leads & Inquiry Agent', icon: Zap, desc: 'Intent scoring & social triage' },
+                { id: 'SALES', name: 'Sales & Deals Agent', icon: Briefcase, desc: 'Win probability & proposals' },
+                { id: 'OPS', name: 'Operations & Jobs Agent', icon: Layers, desc: 'Service delivery & docs vault' },
+                { id: 'FINANCE', name: 'Finance & Ledger Agent', icon: DollarSign, desc: 'Net profit, margins & GST' },
+                { id: 'COMM', name: 'Communications Agent', icon: MessageSquare, desc: 'Sentiment & WhatsApp promises' }
               ].map(agent => (
                 <button
                   key={agent.id}
@@ -260,14 +262,14 @@ export const AIAssistantModule: React.FC = () => {
                     width: '100%',
                     justifyContent: 'flex-start',
                     textAlign: 'left',
-                    padding: '0.6rem 0.75rem',
+                    padding: '0.55rem 0.75rem',
                     borderRadius: 'var(--radius-sm)'
                   }}
                 >
-                  <agent.icon size={16} />
-                  <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700 }}>{agent.name}</div>
-                    <div style={{ fontSize: '0.65rem', opacity: 0.8 }}>{agent.desc}</div>
+                  <agent.icon size={15} />
+                  <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ fontSize: '0.775rem', fontWeight: 700, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{agent.name}</div>
+                    <div style={{ fontSize: '0.65rem', opacity: 0.8, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{agent.desc}</div>
                   </div>
                 </button>
               ))}
@@ -275,10 +277,10 @@ export const AIAssistantModule: React.FC = () => {
 
             <div style={{ marginTop: 'auto', background: 'rgba(99, 102, 241, 0.08)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-glass-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.725rem', fontWeight: 700, color: 'var(--primary)' }}>
-                <ShieldCheck size={14} /> Human Guardrail Active
+                <ShieldCheck size={14} /> Autonomous AI Active
               </div>
               <p style={{ fontSize: '0.675rem', color: 'var(--text-muted)', marginTop: '4px' }}>
-                AI proposes actions with structured parameters. Mutating database operations require explicit 1-click human approval.
+                Agents run natively in VRYS AI. Available directly inside Leads, Deals, Jobs, and Finance.
               </p>
             </div>
           </div>

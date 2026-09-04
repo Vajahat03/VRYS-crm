@@ -75,7 +75,7 @@ export const ExecutiveDashboard: React.FC<ExecutiveDashboardProps> = ({ onOpenQu
 
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button className="btn btn-primary btn-sm" onClick={() => setCurrentRoute('ai')}>
-            <Sparkles size={14} /> Ask VRYS Copilot
+            <Sparkles size={14} /> Ask VRYS AI
           </button>
           <button className="btn btn-glass btn-sm" onClick={() => setCurrentRoute('payments')}>
             View Receivables
