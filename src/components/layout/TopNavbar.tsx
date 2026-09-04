@@ -39,8 +39,9 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
     logout
   } = useApp();
 
-  const orgs = dataStore.getOrganizations();
-  const allUsers = dataStore.getUsers('ALL');
+  const isSuperAdmin = currentUser.role === 'SUPER_ADMIN';
+  const orgs = isSuperAdmin ? dataStore.getOrganizations() : [activeOrg];
+  const availableUsers = isSuperAdmin ? dataStore.getUsers('ALL') : dataStore.getUsers(activeOrg.id);
   const notifications = dataStore.getNotifications(activeOrg.id);
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -197,64 +198,81 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
           )}
         </div>
 
-        {/* Multi-Tenant Org Switcher */}
-        <div style={{ position: 'relative' }}>
-          <button
+        {/* Multi-Tenant Org Indicator / SuperAdmin Switcher */}
+        {isSuperAdmin ? (
+          <div style={{ position: 'relative' }}>
+            <button
+              className="btn btn-glass btn-sm"
+              onClick={() => setShowOrgMenu(!showOrgMenu)}
+              style={{ borderRadius: 'var(--radius-full)', padding: '0.45rem 0.85rem' }}
+              title="SuperAdmin: Switch Tenant Context"
+            >
+              <Building2 size={15} color="var(--secondary)" />
+              <span style={{ maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{activeOrg.name}</span>
+              <ChevronDown size={13} />
+            </button>
+
+            {showOrgMenu && (
+              <div className="glass-panel" style={{
+                position: 'absolute',
+                top: '115%',
+                right: 0,
+                width: '240px',
+                padding: '0.5rem',
+                zIndex: 100
+              }}>
+                <p style={{ fontSize: '0.675rem', fontWeight: 700, color: 'var(--text-dim)', padding: '4px 8px', textTransform: 'uppercase' }}>
+                  SuperAdmin: Switch Tenant
+                </p>
+                {orgs.map(o => (
+                  <button
+                    key={o.id}
+                    className="btn btn-glass btn-sm"
+                    style={{
+                      width: '100%',
+                      justifyContent: 'space-between',
+                      border: 'none',
+                      marginBottom: '4px',
+                      background: o.id === activeOrg.id ? 'var(--bg-glass-active)' : 'transparent'
+                    }}
+                    onClick={() => {
+                      setActiveOrg(o);
+                      setShowOrgMenu(false);
+                    }}
+                  >
+                    <span style={{ fontWeight: o.id === activeOrg.id ? 700 : 500 }}>{o.name}</span>
+                    {o.id === activeOrg.id && <CheckCircle2 size={14} color="var(--emerald)" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
             className="btn btn-glass btn-sm"
-            onClick={() => setShowOrgMenu(!showOrgMenu)}
-            style={{ borderRadius: 'var(--radius-full)', padding: '0.45rem 0.85rem' }}
+            style={{
+              borderRadius: 'var(--radius-full)',
+              padding: '0.45rem 0.85rem',
+              cursor: 'default',
+              opacity: 0.95
+            }}
+            title="Your Active Business Workspace"
           >
             <Building2 size={15} color="var(--secondary)" />
-            <span style={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{activeOrg.name}</span>
-            <ChevronDown size={13} />
-          </button>
+            <span style={{ maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', fontWeight: 600 }}>{activeOrg.name}</span>
+          </div>
+        )}
 
-          {showOrgMenu && (
-            <div className="glass-panel" style={{
-              position: 'absolute',
-              top: '115%',
-              right: 0,
-              width: '240px',
-              padding: '0.5rem',
-              zIndex: 100
-            }}>
-              <p style={{ fontSize: '0.675rem', fontWeight: 700, color: 'var(--text-dim)', padding: '4px 8px', textTransform: 'uppercase' }}>
-                Switch Organization
-              </p>
-              {orgs.map(o => (
-                <button
-                  key={o.id}
-                  className="btn btn-glass btn-sm"
-                  style={{
-                    width: '100%',
-                    justifyContent: 'space-between',
-                    border: 'none',
-                    marginBottom: '4px',
-                    background: o.id === activeOrg.id ? 'var(--bg-glass-active)' : 'transparent'
-                  }}
-                  onClick={() => {
-                    setActiveOrg(o);
-                    setShowOrgMenu(false);
-                  }}
-                >
-                  <span style={{ fontWeight: o.id === activeOrg.id ? 700 : 500 }}>{o.name}</span>
-                  {o.id === activeOrg.id && <CheckCircle2 size={14} color="var(--emerald)" />}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Role Switcher for Testing RBAC */}
+        {/* User Account / Role Menu */}
         <div style={{ position: 'relative' }}>
           <button
             className="btn btn-glass btn-sm"
             onClick={() => setShowUserMenu(!showUserMenu)}
             style={{ borderRadius: 'var(--radius-full)', padding: '0.45rem 0.85rem' }}
-            title="Switch User Role Persona"
+            title="User Account & Role"
           >
             <Shield size={15} color="var(--primary)" />
-            <span>Role: {currentUser.roleName}</span>
+            <span>{currentUser.name} ({currentUser.roleName})</span>
             <ChevronDown size={13} />
           </button>
 
@@ -263,35 +281,47 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
               position: 'absolute',
               top: '115%',
               right: 0,
-              width: '250px',
+              width: '260px',
               padding: '0.5rem',
               zIndex: 100
             }}>
-              <p style={{ fontSize: '0.675rem', fontWeight: 700, color: 'var(--text-dim)', padding: '4px 8px', textTransform: 'uppercase' }}>
-                Simulate Role Persona
-              </p>
-              {allUsers.map(u => (
-                <button
-                  key={u.id}
-                  className="btn btn-glass btn-sm"
-                  style={{
-                    width: '100%',
-                    justifyContent: 'flex-start',
-                    border: 'none',
-                    marginBottom: '4px',
-                    background: u.id === currentUser.id ? 'var(--bg-glass-active)' : 'transparent'
-                  }}
-                  onClick={() => {
-                    setCurrentUser(u);
-                    setShowUserMenu(false);
-                  }}
-                >
-                  <div style={{ textAlign: 'left' }}>
-                    <p style={{ fontSize: '0.8rem', fontWeight: 600 }}>{u.name}</p>
-                    <p style={{ fontSize: '0.675rem', color: 'var(--text-muted)' }}>{u.roleName}</p>
-                  </div>
-                </button>
-              ))}
+              <div style={{ padding: '6px 8px', borderBottom: '1px solid var(--border-glass-subtle)', marginBottom: '6px' }}>
+                <p style={{ fontSize: '0.825rem', fontWeight: 700, color: 'var(--text-highlight)' }}>{currentUser.name}</p>
+                <p style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>{currentUser.email}</p>
+                <p style={{ fontSize: '0.675rem', color: 'var(--primary)', marginTop: '2px', fontWeight: 600 }}>
+                  Workspace: {activeOrg.name}
+                </p>
+              </div>
+
+              {availableUsers.length > 1 && (
+                <>
+                  <p style={{ fontSize: '0.675rem', fontWeight: 700, color: 'var(--text-dim)', padding: '4px 8px', textTransform: 'uppercase' }}>
+                    {isSuperAdmin ? 'Switch Persona' : 'Team Members'}
+                  </p>
+                  {availableUsers.map(u => (
+                    <button
+                      key={u.id}
+                      className="btn btn-glass btn-sm"
+                      style={{
+                        width: '100%',
+                        justifyContent: 'flex-start',
+                        border: 'none',
+                        marginBottom: '4px',
+                        background: u.id === currentUser.id ? 'var(--bg-glass-active)' : 'transparent'
+                      }}
+                      onClick={() => {
+                        setCurrentUser(u);
+                        setShowUserMenu(false);
+                      }}
+                    >
+                      <div style={{ textAlign: 'left' }}>
+                        <p style={{ fontSize: '0.8rem', fontWeight: 600 }}>{u.name}</p>
+                        <p style={{ fontSize: '0.675rem', color: 'var(--text-muted)' }}>{u.roleName}</p>
+                      </div>
+                    </button>
+                  ))}
+                </>
+              )}
 
               <div style={{ borderTop: '1px solid var(--border-glass-subtle)', marginTop: '6px', paddingTop: '6px' }}>
                 <button
