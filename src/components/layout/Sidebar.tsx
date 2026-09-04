@@ -40,7 +40,7 @@ interface NavItem {
 }
 
 export const Sidebar: React.FC = () => {
-  const { currentRoute, setCurrentRoute, activeOrg, currentUser, refreshTrigger } = useApp();
+  const { currentRoute, setCurrentRoute, activeOrg, currentUser, refreshTrigger, logout } = useApp();
 
   const leads = dataStore.getLeads(activeOrg.id);
   const pendingJobs = dataStore.getJobs(activeOrg.id).filter(j => j.status !== 'Completed' && j.status !== 'Cancelled');
@@ -285,6 +285,14 @@ export const Sidebar: React.FC = () => {
               {currentUser.roleName}
             </p>
           </div>
+          <button
+            onClick={logout}
+            className="btn btn-glass btn-icon"
+            style={{ width: '32px', height: '32px', borderRadius: '50%', color: 'var(--rose)' }}
+            title="Sign Out of Workspace"
+          >
+            <LogOut size={15} />
+          </button>
         </div>
       </div>
     </aside>

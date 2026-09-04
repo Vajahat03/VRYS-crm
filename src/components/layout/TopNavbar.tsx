@@ -16,7 +16,8 @@ import {
   CreditCard,
   UserPlus,
   Layers,
-  Store
+  Store,
+  LogOut
 } from 'lucide-react';
 import { dataStore } from '../../services/dataStore';
 
@@ -34,7 +35,8 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
     toggleTheme,
     setIsCommandPaletteOpen,
     currentRoute,
-    setCurrentRoute
+    setCurrentRoute,
+    logout
   } = useApp();
 
   const orgs = dataStore.getOrganizations();
@@ -290,6 +292,26 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({ onOpenQuickModal }) => {
                   </div>
                 </button>
               ))}
+
+              <div style={{ borderTop: '1px solid var(--border-glass-subtle)', marginTop: '6px', paddingTop: '6px' }}>
+                <button
+                  className="btn btn-glass btn-sm"
+                  style={{
+                    width: '100%',
+                    justifyContent: 'flex-start',
+                    border: 'none',
+                    color: 'var(--rose)',
+                    gap: '0.5rem'
+                  }}
+                  onClick={() => {
+                    setShowUserMenu(false);
+                    logout();
+                  }}
+                >
+                  <LogOut size={14} />
+                  <span>Sign Out of Workspace</span>
+                </button>
+              </div>
             </div>
           )}
         </div>

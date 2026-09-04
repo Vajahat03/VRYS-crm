@@ -5,6 +5,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { TopNavbar } from './components/layout/TopNavbar';
 import { CommandPalette } from './components/common/CommandPalette';
 import { ToastContainer } from './components/common/ToastContainer';
+import { AuthPage } from './components/auth/AuthPage';
 
 // Modules
 import { ExecutiveDashboard } from './components/dashboard/ExecutiveDashboard';
@@ -26,7 +27,7 @@ import { SettingsModule } from './components/settings/SettingsModule';
 import { CloudSyncModule } from './components/settings/CloudSyncModule';
 
 export const App: React.FC = () => {
-  const { currentRoute, setCurrentRoute } = useApp();
+  const { currentRoute, setCurrentRoute, isAuthenticated } = useApp();
 
   const handleOpenQuickModal = (type: 'lead' | 'customer' | 'job' | 'payment' | 'kirkol') => {
     switch (type) {
@@ -93,6 +94,16 @@ export const App: React.FC = () => {
         return <ExecutiveDashboard onOpenQuickModal={handleOpenQuickModal} />;
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', overflow: 'hidden' }}>
+        <AmbientBackground />
+        <AuthPage />
+        <ToastContainer />
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', overflow: 'hidden' }}>
