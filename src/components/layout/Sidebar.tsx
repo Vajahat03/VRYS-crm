@@ -92,8 +92,9 @@ export const Sidebar: React.FC = () => {
       group: 'System & Admin',
       items: [
         { id: 'analytics', label: 'Analytics & Reports', icon: TrendingUp },
-        { id: 'cloud_sync', label: 'Cloud Database & Sync', icon: Database, badge: 'Supabase', badgeColor: 'badge-emerald' },
-        { id: 'admin', label: 'VRYS Platform Admin', icon: ShieldCheck, badge: 'Owner', badgeColor: 'badge-amber' },
+        ...(currentUser.role === 'SUPER_ADMIN' ? [
+          { id: 'admin' as NavRoute, label: 'VRYS Platform Admin', icon: ShieldCheck, badge: 'Owner', badgeColor: 'badge-amber' }
+        ] : []),
         { id: 'settings', label: 'Settings & Profile', icon: Settings }
       ]
     }
